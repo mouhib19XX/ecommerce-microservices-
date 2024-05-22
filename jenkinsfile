@@ -173,27 +173,27 @@ pipeline {
             }
         }
     }
-        stage('Updating Kubernetes deployment file'){
+         stage('Update Kubernetes Deployment Files') {
             steps {
                 script {
-                    for  (service in microservices) {
-                        sh "sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' "${DOCKER_USER}/${service}:${IMAGE_TAG}.yml" "
-                        sh "cat "${DOCKER_USER}/${service}:${IMAGE_TAG}.yml" "
+                    for (service in microservices) {
+                        def deploymentFile = "k8s/${service}.yml"
+                        sh "sed -i 's|image: ${DOCKER_USER}/${service}:.*|image: ${DOCKER_USER}/${service}:${IMAGE_TAG}|g' ${deploymentFile}"
+                        sh "cat ${deploymentFile}"  //Display the updated file for verification
                     }
-                    
                 }
-                
             }
         }
-        stage('Push the changed deployment file to Git'){
+
+        stage('Push Updated Deployment Files to Git') {
             steps {
-                script{
+                script {
+                    // Add and commit the changes to the deployment files
                     sh """
-                    git "${DOCKER_USER}/${service}:${IMAGE_TAG}.yml"
-                    git commit -m 'Updated the deployment file' """
-                    withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                        sh "git push http://$user:$pass@github.com/kunchalavikram1427/gitops-demo.git dev"
-                    }
+                    git add k8s/
+                    git commit -m 'Updated the deployment files with new image tags'
+                    git push http://${user}:${pass}@github.com/mouhib19XX/ecommerce-microservices-.git main
+                    """
                 }
             }
         }
