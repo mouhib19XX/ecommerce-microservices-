@@ -2,7 +2,7 @@
 version: '3'
 services:
   order-service-container:
-    image: selimhorri/order-service-ecommerce-boot:0.1.0
+    image: mouhib543/order-service 
     ports:
       - 8300:8300
     environment:

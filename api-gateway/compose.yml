@@ -2,7 +2,7 @@
 version: '3'
 services:
   api-gateway-container:
-    image: selimhorri/api-gateway-ecommerce-boot:0.1.0
+    image: mouhib543/api-gateway 
     ports:
       - 8080:8080
     environment:

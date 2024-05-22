@@ -1,5 +1,6 @@
 FROM openjdk:11
 ARG JAR_FILE=target/*.jar
+ENV SPRING_PROFILES_ACTIVE dev
 COPY ${JAR_FILE} api-gateway.jar
-ENTRYPOINT ["java","-jar","/api-gateway.jar"]
-EXPOSE 8080
+ENTRYPOINT ["java","-jar","-Dspring.profiles.active=${SPRING_PROFILES_ACTIVE}","/api-gateway.jar"]
+EXPOSE 8085

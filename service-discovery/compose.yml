@@ -2,7 +2,7 @@
 version: '3'
 services:
   service-discovery-container:
-    image: selimhorri/service-discovery-ecommerce-boot:0.1.0
+    image: mouhib543/service-discovery 
     ports:
       - 8761:8761
     environment:
