@@ -172,7 +172,6 @@ pipeline {
                 }
             }
         }
-    }
          stage('Update Kubernetes Deployment Files') {
             steps {
                 script {
@@ -197,5 +196,5 @@ pipeline {
                 }
             }
         }
-    
+    }
 }
